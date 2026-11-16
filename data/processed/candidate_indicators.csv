@@ -1,0 +1,8 @@
+ticker,company,fiscal_end,scope,inventory_jpy,inventory_yoy_pct,inventory_days,gross_margin_pct,short_term_debt_jpy,interest_expense_jpy,operating_cash_flow_jpy,source_doc_id,source_url,audit_flag
+2975,スター・マイカ・ホールディングス,2020-11-30,consolidated,66541372000.0,,,15.09,433000000.0,591584000.0,4765770000.0,S100KVFG,https://api.edinet-fsa.go.jp/api/v2/documents/S100KVFG?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+2982,ADワークスグループ,2020-12-31,consolidated,24566762000.0,,,18.69,30000000.0,184572000.0,-1058244000.0,S100L1MX,https://api.edinet-fsa.go.jp/api/v2/documents/S100L1MX?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+3248,アールエイジ,2020-10-31,consolidated,4150414000.0,,,29.51,289000000.0,66479000.0,795499000.0,S100KKUT,https://api.edinet-fsa.go.jp/api/v2/documents/S100KKUT?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+3277,サンセイランディック,2020-12-31,consolidated,14424958000.0,,,22.43,4262650000.0,155033000.0,-916543000.0,S100L12Y,https://api.edinet-fsa.go.jp/api/v2/documents/S100L12Y?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+3299,ムゲンエステート,2020-12-31,consolidated,41620000000.0,,,16.82,2050000000.0,669000000.0,10981000000.0,S100L094,https://api.edinet-fsa.go.jp/api/v2/documents/S100L094?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+3475,グッドコムアセット,2020-10-31,consolidated,17295738000.0,,,18.2,3490330000.0,158617000.0,-6112104000.0,S100KL88,https://api.edinet-fsa.go.jp/api/v2/documents/S100KL88?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
+3486,グローバル・リンク・マネジメント,2020-12-31,consolidated,15126774000.0,,,14.57,699632000.0,325094000.0,-394651000.0,S100L1WT,https://api.edinet-fsa.go.jp/api/v2/documents/S100L1WT?type=5,MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC
