@@ -97,13 +97,15 @@ def discover(start, days, key, delay):
 
 def download_csvs(key, limit, delay):
     manifest=load_csv(RAW/"edinet_documents.csv")
+    processed={r["source_doc_id"] for r in load_csv(ROOT/"data"/"processed"/"financial_candidates.csv")}
     directory=RAW/"filings"
     directory.mkdir(parents=True,exist_ok=True)
     count=0
     with requests.Session() as session:
         for row in manifest:
             doc_id=row["doc_id"]
-            if str(row["csv_flag"])!="1" or not doc_id: continue
+            if str(row["csv_flag"])!="1" or not doc_id or str(row["doc_type_code"]) not in ("120","130"): continue
+            if doc_id in processed: continue
             destination=directory/(doc_id+".zip")
             if destination.exists(): continue
             if count>=limit: break
@@ -124,7 +126,7 @@ def main():
     args=parser.parse_args()
     key=os.environ.get("EDINET_API_KEY","").strip()
     if not key: raise SystemExit("Missing EDINET_API_KEY. Add GitHub Actions repository secret.")
-    if not (1<=args.days<=60): raise SystemExit("--days must be between 1 and 60")
+    if not (1<=args.days<=180): raise SystemExit("--days must be between 1 and 180")
     scanned,found=discover(date.fromisoformat(args.start),args.days,key,args.delay)
     downloaded=download_csvs(key,args.download,args.delay)
     print(f"EDINET scanned={scanned}; matched filings={found}; downloaded ZIPs={downloaded}")
