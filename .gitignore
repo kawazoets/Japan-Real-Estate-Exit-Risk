@@ -2,3 +2,6 @@ __pycache__/
 .pytest_cache/
 .env
 *.pyc
+
+# EDINET raw archives are downloaded temporarily; source IDs and parsed candidates are tracked.
+data/raw/filings/*.zip
