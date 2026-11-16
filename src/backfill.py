@@ -40,7 +40,7 @@ def execute(days=120,archive_limit=50,delay=2.5,priority_days=180):
         state["priority_last_batch_start"]=priority_start.isoformat()
         state["priority_last_batch_days"]=priority_span
         STATE.parent.mkdir(parents=True,exist_ok=True)
-        STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+        STATE.write_text(json.dumps(state,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
         print("priority 2024+ batch:",priority_start,priority_span,
               "next",state["priority_next_date"])
     # Annual filings only; download cap prevents oversized workflow runs.
