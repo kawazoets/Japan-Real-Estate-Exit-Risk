@@ -14,8 +14,8 @@ def test_actual_intellex_annual_primary_ir_numbers():
        item("463A",2026,37412,58471,49153,9317,1043),
     ]
     comparisons=calc(rows)
-    assert len(comparisons)==1
-    row=comparisons[0]
+    assert len(comparisons)==2
+    row=comparisons[-1]
     assert row["inventory_yoy_pct"]==30.98
     assert row["resale_units_yoy_pct"]==-0.86
     assert row["inventory_days_from"]==242.2
