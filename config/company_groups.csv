@@ -1,0 +1,16 @@
+group_id,canonical_company,tickers,cohort,investigation_role
+star_mica,スター・マイカ・ホールディングス,2975,core,中古区分マンション買取再販
+intellex,インテリックスグループ,8940|463A,core,リノベーション中古マンション買取再販・持株会社移行
+egrand,イーグランド,3294,core,中古住宅買取再販・戸建区分に注意
+mugen,ムゲンエステート,3299,core,収益不動産買取再販・区分マンション比率要確認
+landnet,ランドネット,2991,core,区分マンション等の買取再販
+fuji_jutaku,フジ住宅,8860,core,中古住宅流通と新築等を分離
+tosei,トーセイ,8923,comparison,再生・開発・賃貸が混在
+sansei_landic,サンセイランディック,3277,comparison,権利調整型不動産
+tobu_juhan,東武住販,3297,comparison,戸建中心の対照群
+good_com,グッドコムアセット,3475,comparison,投資用新築マンション主体
+global_link,グローバル・リンク・マネジメント,3486,comparison,投資用マンション開発
+dear_life,ディア・ライフ,3245,comparison,開発主体・中古再販と区別
+ad_works,ADワークスグループ,2982,comparison,収益物件中心
+r_age,アールエイジ,3248,comparison,賃貸・開発混在
+cosmos_initia,コスモスイニシア,8844,comparison,開発・再生混在
