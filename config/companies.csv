@@ -1,0 +1,17 @@
+ticker,company,cohort,focus,notes
+2975,スター・マイカ・ホールディングス,core,condo_resale,中古マンション買取再販
+8940,インテリックス（旧上場会社）,core,condo_resale,2025年11月27日上場廃止・2025年までの資料
+463A,インテリックスホールディングス,core,condo_resale,2025年12月1日持株会社上場・8940の後継・連続比較に組替確認必要
+3294,イーグランド,core,condo_resale,中古住宅買取再販・マンションと戸建ての区分確認
+3299,ムゲンエステート,core,property_resale,投資用不動産混在・マンション単独不可
+2991,ランドネット,core,property_resale,区分マンション等・取扱物件の種類に注意
+8860,フジ住宅,core,condo_resale_mixed,住宅流通・他事業混在
+8923,トーセイ,comparison,mixed_real_estate,開発・再生・賃貸等混在
+3277,サンセイランディック,comparison,mixed_real_estate,権利調整型不動産
+3297,東武住販,comparison,house_resale,戸建て主体の対照群
+3475,グッドコムアセット,comparison,investment_condo,投資用マンション開発・販売で買取再販と異なる
+3486,グローバル・リンク・マネジメント,comparison,investment_condo,投資用マンション開発・販売で買取再販と異なる
+3245,ディア・ライフ,comparison,mixed_real_estate,マンション開発中心・買取再販と異なる
+2982,ADワークスグループ,comparison,investment_property,収益不動産の買取再販
+3248,アールエイジ,comparison,mixed_real_estate,賃貸・開発混在
+8844,コスモスイニシア,comparison,mixed_real_estate,マンション開発と再生など
