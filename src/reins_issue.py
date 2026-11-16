@@ -16,6 +16,8 @@ def main():
         print("- 売出在庫："+format(int(r["inventory_count"]),",")+"件")
         print("- 成約件数："+format(int(r["contracts_count"]),",")+"件")
         print("- 成約平均価格："+format(int(r["contract_price_jpy"])//10000,",")+"万円")
+        if r.get("listing_price_jpy"):
+            print("- 売出在庫の平均価格："+format(int(r["listing_price_jpy"])//10000,",")+"万円")
         print("- 在庫÷当月成約件数："+format(int(r["inventory_count"])/int(r["contracts_count"]),".2f"))
         print("- 一次資料："+r["source_url"])
         print("- 参照ページ："+r["source_page"]+"\n")
