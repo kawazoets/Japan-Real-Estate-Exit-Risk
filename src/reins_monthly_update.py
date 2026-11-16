@@ -83,6 +83,29 @@ def numbers_from_tokiotable(text,month):
     if len(matches)!=1:raise ValueError("Expected exactly one Tokyo row for "+month+", found "+str(len(matches)))
     return matches[0]
 
+def page_table_text(page):
+    """Build left-to-right rows from PDF word positions.
+
+    Some PDF releases encode each table cell as a separate text block;
+    get_text(sort=True) may then return column-wise rather than row-wise.
+    """
+    words=page.get_text("words")
+    groups=[]
+    for x0,y0,x1,y1,word,*_ in sorted(words,key=lambda w: (w[1],w[0])):
+        center=(y0+y1)/2
+        group=next((g for g in groups if abs(g[0]-center)<3.2),None)
+        if group is None:
+            group=[center,[]]
+            groups.append(group)
+        group[1].append((x0,word))
+    return "\\n".join(" ".join(word for x,word in sorted(g[1])) for g in sorted(groups))
+
+def parse_page(page,month):
+    try:
+        return numbers_from_tokiotable(page.get_text(sort=True),month)
+    except ValueError:
+        return numbers_from_tokiotable(page_table_text(page),month)
+
 def extract_pdf(pdf_bytes,month):
     with fitz.open(stream=pdf_bytes,filetype="pdf") as doc:
         if len(doc)<4:raise ValueError("Report PDF shorter than four pages")
@@ -90,8 +113,8 @@ def extract_pdf(pdf_bytes,month):
         year,mon=month.split("-")
         if year not in cover or not re.search(r"0?"+str(int(mon))+r"月",cover):
             raise ValueError("PDF cover does not match requested report month: "+month)
-        n_contract,sqm_contract,price_contract=numbers_from_tokiotable(doc[PAGE_INDEX_CONTRACT].get_text(sort=True),month)
-        n_stock,sqm_stock,price_stock=numbers_from_tokiotable(doc[PAGE_INDEX_INVENTORY].get_text(sort=True),month)
+        n_contract,sqm_contract,price_contract=parse_page(doc[PAGE_INDEX_CONTRACT],month)
+        n_stock,sqm_stock,price_stock=parse_page(doc[PAGE_INDEX_INVENTORY],month)
         return {
             "observation_month":month,"geography":"Tokyo",
             "inventory_count":n_stock,"contracts_count":n_contract,
