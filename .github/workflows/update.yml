@@ -68,13 +68,15 @@ jobs:
         run: python -m src.analyze
       - name: Rebuild official-IR comparable peer figures
         run: python -m src.compare_ir
+      - name: Enforce full 15-group coverage and report missing annual evidence
+        run: python -m src.cohort
       - name: Generate evidence-gated editorial readiness report
         run: python -m src.editorial
       - name: Commit evidence and progress
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/raw data/processed docs/STATUS.md docs/QUALITY.md docs/EDITORIAL.md
+          git add data/raw data/processed docs/STATUS.md docs/QUALITY.md docs/EDITORIAL.md docs/COHORT_COVERAGE.md
           if git diff --cached --quiet; then
             echo 'No new evidence'
           else
