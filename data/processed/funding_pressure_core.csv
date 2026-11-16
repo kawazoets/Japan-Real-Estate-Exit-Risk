@@ -1,0 +1,5 @@
+ticker,company,fiscal_end,scope,sales_property_inventory_mJPY,investment_property_inventory_mJPY,residential_property_inventory_mJPY,short_term_borrowings_mJPY,interest_expense_mJPY,operating_cf_mJPY,source_url,notes
+2991,ランドネット,2025-07-31,consolidated,22763,,,9415,280,-2601,https://www2.jpx.co.jp/disc/29910/140120260911534965.pdf,2026_07_CONSOLIDATED_FY_PRIOR_COMPARATIVES
+2991,ランドネット,2026-07-31,consolidated,29792,,,14789,419,-3857,https://www2.jpx.co.jp/disc/29910/140120260911534965.pdf,2026_07_CONSOLIDATED_FY
+3299,ムゲンエステート,2024-12-31,consolidated,60525,32760,27765,,751,2600,https://api.edinet-fsa.go.jp/api/v2/documents/S100XT1L?type=5,2025_12_CONSOLIDATED_AUDITED_FY_PRIOR_RESIDENTIAL_MIX
+3299,ムゲンエステート,2025-12-31,consolidated,75499,45572,29927,,945,-6756,https://api.edinet-fsa.go.jp/api/v2/documents/S100XT1L?type=5,2025_12_CONSOLIDATED_AUDITED_FY_CURRENT_RESIDENTIAL_MIX
