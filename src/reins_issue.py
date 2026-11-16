@@ -20,6 +20,17 @@ def main():
             print("- 売出在庫の平均価格："+format(int(r["listing_price_jpy"])//10000,",")+"万円")
         print("- 在庫÷当月成約件数："+format(int(r["inventory_count"])/int(r["contracts_count"]),".2f"))
         print("- 一次資料："+r["source_url"])
+        previous_month=str(int(month[:4])-1)+month[4:]
+        if previous_month in rows:
+            before=rows[previous_month]
+            parts=[]
+            for label,metric in (("在庫","inventory_count"),("成約","contracts_count"),
+                                 ("成約価格","contract_price_jpy"),("売出価格","listing_price_jpy")):
+                old_value=before.get(metric)
+                now_value=r.get(metric)
+                if old_value and now_value and float(old_value)!=0:
+                    parts.append(label+" "+format((float(now_value)/float(old_value)-1)*100,"+.1f")+"%")
+            if parts:print("- 前年同月比："+", ".join(parts))
         print("- 参照ページ："+r["source_page"]+"\n")
     print("注意：在庫÷当月成約件数は販売期間ではありません。売出平均価格と成約平均価格の差は同一物件の値引きではありません。")
     print("この更新は東京の買取再販業者の『出口渋滞』を立証するものではありません。")
