@@ -80,8 +80,11 @@ def numbers_from_tokiotable(text,month):
                 and 5<=area<=300 and abs(price/sqm-area)<0.6):
             continue
         matches.append((n,sqm,price))
-    if len(matches)!=1:raise ValueError("Expected exactly one Tokyo row for "+month+", found "+str(len(matches)))
-    return matches[0]
+    # Each monthly PDF carries 13 months of data; e.g. 25/10 and the latest 10.
+    # The final occurrence is the publication month. Earlier same-month row is the baseline.
+    if not matches or len(matches)>2:
+        raise ValueError("Expected one or two dated Tokyo rows for "+month+", found "+str(len(matches)))
+    return matches[-1]
 
 def page_table_text(page):
     """Build left-to-right rows from PDF word positions.
