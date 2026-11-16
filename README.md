@@ -1,3 +1,11 @@
+## 買取再販業者の初回検証（一次資料）
+
+- [2社の公式IRに基づく比較と反証](docs/COMPANY_FIRST_PASS.md)
+- [IR一次資料・数値テーブル](data/processed/company_ir_primary.csv)
+- [在庫回転・利益率の比較結果](data/processed/company_ir_comparisons.csv)
+
+**暫定的に判明したこと:** スター・マイカHDは2024→2025で売上高の伸びが在庫増加率を上回り、粗利益率も改善。インテリックスは2025→2026で在庫+31%、リノベ中古マンション販売戸数-0.9%、連結粗利率-1.9ポイントだが、全社参考在庫回転日数は約242→245日と大幅には悪化していない。**したがって、この2社を「売れ残りで資金回収に詰まった企業」と結論づけることはできない。** 2025/2026の組織再編・期間相違にも注意する。
+
 ## レインズ月次更新・通知
 
 - [REINS Monthly Tokyo Market Monitor](.github/workflows/reins-monthly.yml) は毎日 **10:40 シンガポール時間**に東日本レインズの公式月例PDFの公開を確認する（GitHub Actions の cron は 02:40 UTC）。
