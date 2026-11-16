@@ -89,8 +89,18 @@ def main():
         with candidate_file.open(encoding="utf-8",newline="") as input_file:
             candidate_rows=list(csv.DictReader(input_file))
     import json
-    provisional=[r for r in candidate_rows if json.loads(r.get("audit_note") or "{}").get("status")=="MACHINE_EXTRACTED_UNREVIEWED"]
+    # Only quality-screened rows may enter preliminary time-series calculations.
+    checks_file=OUT/"quality_checks.csv"
+    eligible_ids=set()
+    if checks_file.exists():
+        with checks_file.open(encoding="utf-8",newline="") as check_file:
+            eligible_ids={r["doc_id"] for r in csv.DictReader(check_file)
+                          if r.get("comparison_eligible")=="POTENTIAL_ONLY"}
+    provisional=[r for r in candidate_rows
+                 if r.get("source_doc_id") in eligible_ids
+                 and json.loads(r.get("audit_note") or "{}").get("status")=="MACHINE_EXTRACTED_UNREVIEWED"]
     candidates=calculate(provisional)
+    print("Screened preliminary candidate rows:",len(provisional))
     with (OUT/"candidate_indicators.csv").open("w",encoding="utf-8",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=fields)
         writer.writeheader()
