@@ -62,29 +62,26 @@ def numbers_from_tokiotable(text,month):
     if len(parts)!=2: raise ValueError("Tokyo section heading not found")
     end=re.split(r"[○◯]\\s*埼玉県",parts[1],maxsplit=1)[0]
     month_num=int(month[-2:])
-    matches=[]
+    # PDFs contain a rolling 13-month table: the month can occur twice.
+    # Select the LAST matching row, but reject it if its cells are malformed.
+    month_rows=[]
     for line in end.splitlines():
         cells=line.strip().split()
-        if len(cells)<12: continue
-        first=cells[0]
-        mo=RECORD_MONTH.fullmatch(first)
-        if not mo or int(mo.group(1))!=month_num:continue
-        if not all(NUMERIC.fullmatch(v) for v in cells[1:13]):continue
-        try:
-            values=[float(v.replace(",","")) for v in cells[1:13]]
-        except ValueError:continue
-        n=int(values[0]); sqm=values[2]; price=values[5]
-        area=values[8]
-        # Reject accidentally selected different tables or shifted columns.
-        if not (50<=n<=1000000 and 1<=sqm<=2000 and 100<=price<=100000
-                and 5<=area<=300 and abs(price/sqm-area)<0.6):
-            continue
-        matches.append((n,sqm,price))
-    # Each monthly PDF carries 13 months of data; e.g. 25/10 and the latest 10.
-    # The final occurrence is the publication month. Earlier same-month row is the baseline.
-    if not matches or len(matches)>2:
-        raise ValueError("Expected one or two dated Tokyo rows for "+month+", found "+str(len(matches)))
-    return matches[-1]
+        if not cells: continue
+        mo=RECORD_MONTH.fullmatch(cells[0])
+        if mo and int(mo.group(1))==month_num:
+            month_rows.append(cells)
+    if not 1<=len(month_rows)<=2:
+        raise ValueError("Expected latest Tokyo row and optional year-earlier row for "+month)
+    cells=month_rows[-1]
+    if len(cells)<13 or not all(NUMERIC.fullmatch(v) for v in cells[1:13]):
+        raise ValueError("Unparseable latest-month Tokyo row: "+month)
+    values=[float(v.replace(",","")) for v in cells[1:13]]
+    n=int(values[0]); sqm=values[2]; price=values[5]; area=values[8]
+    if not (50<=n<=1000000 and 1<=sqm<=2000 and 100<=price<=100000
+            and 5<=area<=300 and abs(price/sqm-area)<0.6):
+        raise ValueError("Out-of-range or misaligned latest-month Tokyo data: "+month)
+    return (n,sqm,price)
 
 def page_table_text(page):
     """Build left-to-right rows from PDF word positions.
