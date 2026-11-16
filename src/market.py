@@ -15,7 +15,7 @@ FIELDS=["observation_month","geography","inventory_count","contracts_count","con
         "contract_sqm_price_jpy","source_url","source_page","audit_note"]
 SIGNALS=["observation_month","geography","inventory_count","contracts_count",
          "inventory_to_monthly_contracts_ratio","contract_price_jpy","contract_sqm_price_jpy",
-         "source_url","source_page","audit_flag"]
+         "listing_price_jpy","listing_sqm_price_jpy","source_url","source_page","audit_flag"]
 
 def positive_int(v):
     try:
@@ -53,12 +53,15 @@ def validate(rows):
         if inventory is None or contracts is None:raise ValueError("Missing counts in "+str(key))
         sale_price=nonnegative_float(r.get("contract_price_jpy"))
         sqm_price=nonnegative_float(r.get("contract_sqm_price_jpy"))
+        listing_price=nonnegative_float(r.get("listing_price_jpy"))
+        listing_sqm_price=nonnegative_float(r.get("listing_sqm_price_jpy"))
         ratio=round(inventory/contracts,2) if contracts>0 else None
         out.append({
             "observation_month":month,"geography":geography,
             "inventory_count":inventory,"contracts_count":contracts,
             "inventory_to_monthly_contracts_ratio":ratio,
             "contract_price_jpy":sale_price,"contract_sqm_price_jpy":sqm_price,
+            "listing_price_jpy":listing_price,"listing_sqm_price_jpy":listing_sqm_price,
             "source_url":url,"source_page":page,
             "audit_flag":"SOURCE_PAGE_STATED_NOT_INDEPENDENTLY_VERIFIED",
         })
