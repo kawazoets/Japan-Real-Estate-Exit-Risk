@@ -22,7 +22,7 @@ from .reins_sources import parse_index
 CSV_PATH=ROOT/"data"/"processed"/"reins_monthly.csv"
 STATE=ROOT/"data"/"raw"/"reins_monthly_state.json"
 COLUMNS=["observation_month","geography","inventory_count","contracts_count","contract_price_jpy",
-         "contract_sqm_price_jpy","source_url","source_page","audit_note"]
+         "contract_sqm_price_jpy","source_url","source_page","audit_note","listing_price_jpy","listing_sqm_price_jpy"]
 BASE="https://www.reins.or.jp/library/"
 PDF_RE=re.compile(r"/MW_(20\\d{4})data\\.pdf$", re.IGNORECASE)
 RECORD_MONTH=re.compile(r"^(?:(?:20)?\\d{2}/)?(0[1-9]|1[0-2])$")
@@ -99,8 +99,8 @@ def extract_pdf(pdf_bytes,month):
             "contract_sqm_price_jpy":int(round(sqm_contract*10000)),
             "source_page":"2;4",
             "audit_note":"PDF_AUTO_EXTRACTED_REINS_TOKYO_PREFECTURE_WITH_ARITHMETIC_CHECKS_NOT_OPERATOR_SPECIFIC",
-            "_listing_price_jpy":int(round(price_stock*10000)),
-            "_listing_sqm_price_jpy":int(round(sqm_stock*10000)),
+            "listing_price_jpy":int(round(price_stock*10000)),
+            "listing_sqm_price_jpy":int(round(sqm_stock*10000)),
         }
 
 def load_rows():
@@ -133,8 +133,6 @@ def run(session=None):
             raise ValueError("Non-PDF response for "+month)
         record=extract_pdf(response.content,month)
         record["source_url"]=url
-        record.pop("_listing_price_jpy")
-        record.pop("_listing_sqm_price_jpy")
         existing.append(record)
         new.append(record)
     if new:write_rows(existing)
