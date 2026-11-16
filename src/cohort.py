@@ -12,6 +12,7 @@ from .analyze import ROOT
 
 GROUPS=ROOT/"config"/"company_groups.csv"
 CONFIG=ROOT/"config"/"companies.csv"
+PRIMARY_SOURCES=ROOT/"config"/"primary_source_index.csv"
 EDINET=ROOT/"data"/"raw"/"edinet_documents.csv"
 EXTRACTED=ROOT/"data"/"processed"/"financial_candidates.csv"
 IR=ROOT/"data"/"processed"/"company_ir_primary.csv"
@@ -50,6 +51,15 @@ def validate_groups(groups,company_rows):
     successor=[g for g in groups if "8940" in g["tickers"].split("|")]
     if len(successor)!=1 or "463A" not in successor[0]["tickers"].split("|"):
         raise ValueError("Intellex must be one group across its holding-company transition")
+
+def validate_primary_sources(groups, sources):
+    expected={g["group_id"] for g in groups}
+    actual=[r["group_id"] for r in sources]
+    if len(actual)!=len(expected) or set(actual)!=expected or len(set(actual))!=len(actual):
+        raise ValueError("Primary-source index must contain all 15 groups, exactly once")
+    for r in sources:
+        if not r.get("primary_document_or_ir_url","").startswith("https://"):
+            raise ValueError("Missing usable primary-source entry for "+r["group_id"])
 
 def build(groups,company_rows,documents,extracted,ir,verified):
     validate_groups(groups,company_rows)
@@ -123,6 +133,7 @@ def render(rows):
 
 def main():
     groups=read(GROUPS)
+    validate_primary_sources(groups,read(PRIMARY_SOURCES))
     cohort=build(groups,read(CONFIG),read(EDINET),read(EXTRACTED),read(IR),
                  read(ROOT/"data"/"processed"/"financial_facts.csv"))
     OUT.parent.mkdir(parents=True,exist_ok=True)
