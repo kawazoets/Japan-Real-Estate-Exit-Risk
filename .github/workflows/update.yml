@@ -1,0 +1,56 @@
+name: Update exit-risk evidence
+on:
+  workflow_dispatch:
+    inputs:
+      start:
+        description: 'Start date YYYY-MM-DD for historical backfill'
+        required: false
+        default: ''
+      days:
+        description: 'Consecutive days (1-60)'
+        required: false
+        default: '13'
+  schedule:
+    - cron: '12 1 * * 2,5' # 09:12 Singapore time, Tue and Fri
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r requirements.txt
+      - name: Unit tests
+        run: pytest -q
+      - name: EDINET disclosure discovery
+        env:
+          EDINET_API_KEY: ${{ secrets.EDINET_API_KEY }}
+          BACKFILL_START: ${{ inputs.start }}
+          BACKFILL_DAYS: ${{ inputs.days }}
+        run: |
+          if [ -z "$EDINET_API_KEY" ]; then
+            echo 'Missing EDINET_API_KEY: collection cannot proceed' >&2
+            exit 1
+          fi
+          if [ -n "$BACKFILL_START" ]; then
+            python -m src.edinet --start "$BACKFILL_START" --days "$BACKFILL_DAYS"
+          else
+            python -m src.edinet --days 13
+          fi
+      - name: Compute only verified metrics
+        run: python -m src.analyze
+      - name: Commit evidence and changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/raw data/processed docs/STATUS.md
+          if git diff --cached --quiet; then
+            echo 'No evidence changes'
+          else
+            git commit -m 'data: update EDINET filing index and verified indicators'
+            git push
+          fi
