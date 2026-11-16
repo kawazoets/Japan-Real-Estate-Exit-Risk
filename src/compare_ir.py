@@ -20,10 +20,10 @@ def calc(rows):
     for group,record in sorted(groups.items()):
         years=sorted(record)
         for to_year in years:
-            if to_year-1 not in record or to_year-2 not in record:continue
+            if to_year-1 not in record:continue
             old=record[to_year-1]
             new=record[to_year]
-            prior=record[to_year-2]
+            prior=record.get(to_year-2,{})
             def metric(r,k):
                 value=r.get(k,"")
                 return int(value) if value else None
