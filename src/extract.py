@@ -75,7 +75,7 @@ def extract(document, blob):
     row.update({"ticker":document["ticker"],"company":document["company"],
                 "fiscal_end":end,"period_months":"12","scope":"consolidated",
                 "source_doc_id":document["doc_id"],
-                "source_url":"https://disclosure2.edinet-fsa.go.jp/WZEK0040.aspx?S100="+document["doc_id"]})
+                "source_url":"https://api.edinet-fsa.go.jp/api/v2/documents/"+document["doc_id"]+"?type=5"})
     audit={"status":"MACHINE_EXTRACTED_UNREVIEWED","tags":{},"missing":[],"conflicts":[]}
     for metric,tags in MAP.items():
         ctx=STOCK_CONTEXT if metric in ("inventory_jpy","short_term_debt_jpy") else DURATION_CONTEXT
