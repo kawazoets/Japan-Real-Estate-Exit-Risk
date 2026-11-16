@@ -97,6 +97,11 @@ def discover(start, days, key, delay):
 
 def download_csvs(key, limit, delay):
     manifest=load_csv(RAW/"edinet_documents.csv")
+    # Recent filings first, older history still processed after 2024+ is complete.
+    manifest.sort(key=lambda r: (
+        0 if (r.get("submit_datetime") or "")[:4]>="2024" else 1,
+        r.get("submit_datetime") or "", r.get("doc_id") or ""
+    ))
     processed={r["source_doc_id"] for r in load_csv(ROOT/"data"/"processed"/"financial_candidates.csv")}
     directory=RAW/"filings"
     directory.mkdir(parents=True,exist_ok=True)
