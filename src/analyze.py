@@ -73,13 +73,28 @@ def main():
         writer=csv.DictWriter(f,fieldnames=fields)
         writer.writeheader()
         writer.writerows(result)
+    # Provisional observations are kept separate from independently verified facts.
+    candidate_file=OUT/"financial_candidates.csv"
+    candidate_rows=[]
+    if candidate_file.exists():
+        with candidate_file.open(encoding="utf-8",newline="") as input_file:
+            candidate_rows=list(csv.DictReader(input_file))
+    import json
+    provisional=[r for r in candidate_rows if json.loads(r.get("audit_note") or "{}").get("status")=="MACHINE_EXTRACTED_UNREVIEWED"]
+    candidates=calculate(provisional)
+    with (OUT/"candidate_indicators.csv").open("w",encoding="utf-8",newline="") as f:
+        writer=csv.DictWriter(f,fieldnames=fields)
+        writer.writeheader()
+        for row in candidates:
+            row["audit_flag"]="MACHINE_EXTRACTED_UNREVIEWED_NOT_TOKYO_SPECIFIC"
+            writer.writerow(row)
     status=ROOT/"docs"/"STATUS.md"
     status.parent.mkdir(parents=True,exist_ok=True)
-    status.write_text("# Data availability\n\nVerified annual observations: **"+str(len(result))+"**\n\n"+
+    status.write_text("# Data availability\n\nVerified annual observations: **"+str(len(result))+"**\n\nMachine-extracted, unreviewed observations: **"+str(len(candidate_rows))+"**\n\n"+
         ("Indicators computed from source-linked, separately verified fact table.\n" if result else
          "No verified accounting observations yet. The workflow does **not** infer financial deterioration from missing data.\n")+
         "\nThe filing index is evidence discovery, not a distress score.\n",encoding="utf-8")
-    print("Verified indicator rows:",len(result))
+    print("Verified indicator rows:",len(result),"machine-extracted candidate rows:",len(candidate_rows))
 
 if __name__=="__main__":
     main()
