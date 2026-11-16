@@ -60,6 +60,10 @@ jobs:
         run: python -m src.extract
       - name: Check extraction accuracy and document incomparability
         run: python -m src.quality
+      - name: Discover official REINS reports
+        run: python -m src.reins_sources
+      - name: Verify sourced REINS market observations
+        run: python -m src.market
       - name: Build separate preliminary and verified indicators
         run: python -m src.analyze
       - name: Commit evidence and progress
