@@ -98,7 +98,7 @@ def page_table_text(page):
             group=[center,[]]
             groups.append(group)
         group[1].append((x0,word))
-    return "\\n".join(" ".join(word for x,word in sorted(g[1])) for g in sorted(groups))
+    return "\n".join(" ".join(word for x,word in sorted(g[1])) for g in sorted(groups))
 
 def parse_page(page,month):
     try:
