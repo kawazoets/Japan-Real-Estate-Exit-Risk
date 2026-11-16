@@ -2,7 +2,7 @@
 from __future__ import annotations
 import csv
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, date
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -44,10 +44,19 @@ def calculate(rows):
             data={k:safe_float(row.get(k)) for k in METRICS}
             annual=safe_float(row.get("period_months"))==12
             comparable=previous is not None and annual and safe_float(previous.get("period_months"))==12
+            if comparable:
+                comparable = 330 <= (date.fromisoformat(row["fiscal_end"])-date.fromisoformat(previous["fiscal_end"])).days <= 400
+            if comparable:
+                import json
+                def definition(record):
+                    try: return json.loads(record.get("audit_note") or "{}").get("inventory_definition")
+                    except ValueError: return None
+                before,now=definition(previous),definition(row)
+                if before!=now: comparable=False
             stock=data["inventory_jpy"]
             prev_stock=safe_float(previous.get("inventory_jpy")) if comparable else None
             average_stock=(stock+prev_stock)/2 if stock is not None and prev_stock is not None else None
-            turnover=ratio(data["cogs_jpy"],average_stock) if annual else None
+            turnover=ratio(data["cogs_jpy"],average_stock) if annual and comparable else None
             days=round(365/turnover,2) if turnover and turnover>0 else None
             inv_growth=ratio(stock-prev_stock,prev_stock) if stock is not None and prev_stock is not None and comparable else None
             gross_margin=ratio(data["gross_profit_jpy"],data["revenue_jpy"]) if annual else None
