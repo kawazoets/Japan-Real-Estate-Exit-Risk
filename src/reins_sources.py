@@ -14,7 +14,7 @@ from urllib.parse import urljoin, urlparse
 import requests
 
 ROOT=Path(__file__).resolve().parents[1]
-PAGES=["https://www.reins.or.jp/library/"+str(y)+".html" for y in range(2024,2027)]
+PAGES=["https://www.reins.or.jp/library/"+str(y)+".html" for y in range(2024,datetime.now(timezone.utc).year+1)]
 OUTPUT=ROOT/"data"/"raw"/"reins_source_index.csv"
 FIELDS=["report_month","report_kind","pdf_url","index_page","discovered_utc","verification"]
 PDF_RE=re.compile(r"(?P<kind>Z?MW)_(?P<month>20\d{4})data\.pdf$",re.IGNORECASE)
