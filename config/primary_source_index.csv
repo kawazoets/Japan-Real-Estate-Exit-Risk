@@ -1,0 +1,16 @@
+group_id,canonical_company,primary_document_or_ir_url,source_level,coverage_note
+star_mica,スター・マイカ・ホールディングス,https://www.starmica-holdings.co.jp/ir/financial/,OFFICIAL_IR_FOUND,中古区分マンション再販の事業別明細を優先
+intellex,インテリックスグループ,https://www.intellex-hd.co.jp/ir/financial/balancesheet/,OFFICIAL_IR_FOUND,旧8940から463Aへの連続比較を確認
+egrand,イーグランド,https://www.e-grand.co.jp/ir_info,OFFICIAL_IR_FOUND,2026年西武不動産TOB後の上場・開示状況を別途検証
+mugen,ムゲンエステート,https://api.edinet-fsa.go.jp/api/v2/documents/S100XT1L?type=5,EDINET_ANNUAL_DOCUMENT_FOUND,居住用と投資用を必ず分離
+landnet,ランドネット,https://www2.jpx.co.jp/disc/29910/140120260911534965.pdf,JPX_ORIGINAL_FILING_FOUND,販売用不動産と短期借入金とCFを照合
+fuji_jutaku,フジ住宅,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,JPX_ORIGINAL_FILING_FOUND,中古住宅流通と新築事業を分離
+tosei,トーセイ,https://toseicorp.co.jp/ir/irlibrary/,OFFICIAL_IR_FOUND,IFRS及び再生事業の分離が必須
+sansei_landic,サンセイランディック,https://www.sansei-l.co.jp/ir/irlibrary/info01/,OFFICIAL_IR_FOUND,権利調整型不動産の対照群
+tobu_juhan,東武住販,https://www2.jpx.co.jp/disc/32970/081220260821524575_tse-anedjpsm-32970-20260821332970-ixbrl.htm,JPX_ORIGINAL_FILING_FOUND,戸建中心・非連結の対照群
+good_com,グッドコムアセット,https://www.goodcomasset.co.jp/investors/,OFFICIAL_IR_FOUND,新築投資マンション中心・中古再販と混同禁止
+global_link,グローバル・リンク・マネジメント,https://www.global-link-m.com/ir/,OFFICIAL_IR_FOUND,新築開発と中古再販の分類必須
+dear_life,ディア・ライフ,https://www.dear-life.co.jp/ir/library/,OFFICIAL_IR_FOUND,マンション開発主体・土地在庫と区分中古を混同禁止
+ad_works,ADワークスグループ,https://www2.jpx.co.jp/disc/29820/140120260212557000.pdf,JPX_ORIGINAL_FILING_FOUND,一棟収益不動産主体の対照群
+r_age,アールエイジ,https://www.early-age.co.jp/,COMPANY_DOMAIN_ONLY_IR_PAGE_PENDING,公式IR資料直リンクの検証が必要
+cosmos_initia,コスモスイニシア,https://www.daiwair.co.jp/td_download.cgi?c=8844&i=3203922,ORIGINAL_DISCLOSURE_FOUND,開発と再生を分離
