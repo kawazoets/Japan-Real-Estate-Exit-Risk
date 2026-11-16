@@ -1,0 +1,51 @@
+name: REINS Monthly Tokyo Market Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 2 * * *' # Daily check at 10:40 Singapore time; notify on new month only
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: reins-monthly-monitor
+  cancel-in-progress: false
+
+jobs:
+  reins:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install -r requirements.txt
+      - name: Test source extraction
+        run: python -m pytest -q tests/test_reins_monthly.py tests/test_market.py
+      - name: Check official REINS and append only new PDF month
+        id: check
+        run: |
+          python -m src.reins_monthly_update | tee /tmp/reins-update.log
+          echo "months=$(grep '^new_months=' /tmp/reins-update.log | tail -n1 | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+      - name: Calculate market pressure indicators
+        run: python -m src.market
+      - name: Commit new month before notifying
+        if: steps.check.outputs.months != ''
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/processed/reins_monthly.csv data/processed/market_signals.csv data/raw/reins_monthly_state.json
+          git commit -m "data: official REINS Tokyo monthly update"
+          git push
+      - name: Notify repository owner after successful new month commit
+        if: steps.check.outputs.months != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEW_MONTHS: ${{ steps.check.outputs.months }}
+        run: |
+          python -m src.reins_issue > /tmp/reins-issue.md
+          gh issue create --repo "$GITHUB_REPOSITORY" --title "REINS東京都中古マンション月次更新: $NEW_MONTHS" --body-file /tmp/reins-issue.md --assignee kawazoets
