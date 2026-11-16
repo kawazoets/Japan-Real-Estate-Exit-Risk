@@ -1,7 +1,7 @@
 import csv
 import io
 import pytest
-from src.cohort import validate_groups,build,render
+from src.cohort import validate_groups,validate_primary_sources,build,render
 
 def groups():
     text="""group_id,canonical_company,tickers,cohort
@@ -50,3 +50,10 @@ def test_partial_primary_ir_data_is_never_promoted_to_verified():
     assert match["coverage_state"]=="IR_PARTIAL_UNAUDITED"
     assert match["verified_full_year_rows"]==0
     assert "NO silent reduction" in render(rows)
+
+def test_primary_source_index_cannot_drop_13_companies():
+    gs=groups()
+    good=[{"group_id":g["group_id"],"primary_document_or_ir_url":"https://example.com/ir"} for g in gs]
+    validate_primary_sources(gs,good)
+    with pytest.raises(ValueError):
+        validate_primary_sources(gs,good[:2])
