@@ -123,8 +123,10 @@ def run(session=None):
         raise RuntimeError("No official REINS East Japan report links discovered")
     new=[]
     # Latest reports are prioritized; no alert for a previously recorded month.
+    newest_saved=max(known) if known else ""
+    newest_report=max(links)
     for month,url in sorted(links.items()):
-        if month in known: continue
+        if month in known or month<=newest_saved or month!=newest_report: continue
         response=session.get(url,timeout=90)
         response.raise_for_status()
         if not response.content.startswith(b"%PDF"):
