@@ -1,0 +1,9 @@
+group_id,company,period,geography,metric,quantity,average_price_mJPY,approx_amount_mJPY,source_url,source_pdf_page_zero_based,verification,audit_note
+intellex,インテリックス,2025FY_Q1,Tokyo_23_wards,purchases,65,31,2015,https://www.intellex-hd.co.jp/ir/library/explanation/archive/pdf/financial_results/20251006.pdf,42,COMPANY_PRIMARY_SCREEN_VERIFIED,average_rounded_mJPY_multiplication_approximation_not_actual_invoice
+intellex,インテリックス,2026FY_Q1,Tokyo_23_wards,purchases,70,55,3850,https://www.intellex-hd.co.jp/ir/library/explanation/archive/pdf/financial_results/20251006.pdf,42,COMPANY_PRIMARY_SCREEN_VERIFIED,average_rounded_mJPY_multiplication_approximation_not_actual_invoice
+intellex,インテリックス,2025FY_Q1,Tokyo_23_wards,sales,44,40,1760,https://www.intellex-hd.co.jp/ir/library/explanation/archive/pdf/financial_results/20251006.pdf,40,COMPANY_PRIMARY_SCREEN_VERIFIED,average_rounded_mJPY_multiplication_approximation_not_actual_invoice
+intellex,インテリックス,2026FY_Q1,Tokyo_23_wards,sales,52,54,2808,https://www.intellex-hd.co.jp/ir/library/explanation/archive/pdf/financial_results/20251006.pdf,40,COMPANY_PRIMARY_SCREEN_VERIFIED,average_rounded_mJPY_multiplication_approximation_not_actual_invoice
+intellex,インテリックス,2025FY_FULL,Tokyo_23_wards,purchases,264,,,https://www.fisco.co.jp/wordpress/wp-content/uploads/FISCO/intellex20250901.pdf,,ANALYST_COMPANY_MATERIAL_REPUBLISHED,full_year_primary_company_pdf_pending
+intellex,インテリックス,2025FY_FULL,Tokyo_23_wards,sales,227,,,https://www.fisco.co.jp/wordpress/wp-content/uploads/FISCO/intellex20250901.pdf,,ANALYST_COMPANY_MATERIAL_REPUBLISHED,full_year_primary_company_pdf_pending
+intellex,インテリックス,2026FY_FULL,Tokyo_23_wards,purchases,305,,,https://minkabu.jp/news/4618721,,SECONDARY_FISCO_RESEARCH,full_year_primary_company_pdf_pending
+intellex,インテリックス,2026FY_FULL,Tokyo_23_wards,sales,263,,,https://minkabu.jp/news/4618721,,SECONDARY_FISCO_RESEARCH,full_year_primary_company_pdf_pending
