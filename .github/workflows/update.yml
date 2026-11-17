@@ -72,6 +72,8 @@ jobs:
         run: python -m src.cohort
       - name: Compare exactly 15 economic groups without mixing resale categories
         run: python -m src.peer_matrix
+      - name: Recalculate Tokyo 23 wards versus Tama transaction-mix test
+        run: python -m src.tokyo_composition
       - name: Generate evidence-gated editorial readiness report
         run: python -m src.editorial
       - name: Commit evidence and progress
