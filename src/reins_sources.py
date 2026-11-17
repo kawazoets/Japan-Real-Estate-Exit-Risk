@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 import requests
+from .reins_tls import verified_reins_get
 
 ROOT=Path(__file__).resolve().parents[1]
 PAGES=["https://www.reins.or.jp/library/"+str(y)+".html" for y in range(2024,datetime.now(timezone.utc).year+1)]
@@ -53,7 +54,7 @@ def update(session=None):
     discovered=0
     for page in PAGES:
         try:
-            response=session.get(page,timeout=35,headers={"User-Agent":"Japan-Real-Estate-Exit-Risk research/1.0"})
+            response=verified_reins_get(session,page,timeout=35,headers={"User-Agent":"Japan-Real-Estate-Exit-Risk research/1.0"})
             response.raise_for_status()
             pdfs=parse_index(response.text,page)
             for (month,kind),url in pdfs.items():
