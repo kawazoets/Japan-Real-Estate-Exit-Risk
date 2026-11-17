@@ -1,5 +1,8 @@
 {
-  "next_date": "2021-08-29",
-  "last_batch_start": "2021-05-01",
-  "last_batch_days": 120
+  "next_date": "2021-12-27",
+  "last_batch_start": "2021-08-29",
+  "last_batch_days": 120,
+  "priority_next_date": "2024-06-29",
+  "priority_last_batch_start": "2024-01-01",
+  "priority_last_batch_days": 180
 }
