@@ -1,0 +1,7 @@
+month,region,contracts_count,mean_contract_sqm_price_man_yen,yoy_contract_count_pct,yoy_contract_sqm_price_pct,source_url,source_page,scope_note
+2025-10,Tokyo_wards,1836,135.03,,,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,all_23_wards_transactions_not_Tokyo_3central_wards
+2025-10,Tama,398,56.60,,,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,Tokyo_Tama_transactions
+2025-10,Tokyo_total,2234,121.06,,,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,Tokyo_prefecture
+2026-10,Tokyo_wards,1343,129.69,-26.9,-4.0,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,all_23_wards_transactions_not_Tokyo_3central_wards
+2026-10,Tama,327,57.63,-17.8,1.8,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,Tokyo_Tama_transactions
+2026-10,Tokyo_total,1670,115.58,-25.2,-4.5,https://www.reins.or.jp/mw_202610_summary.pdf,3-4,Tokyo_prefecture
