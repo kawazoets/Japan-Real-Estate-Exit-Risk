@@ -61,7 +61,15 @@ jobs:
       - name: Check extraction accuracy and document incomparability
         run: python -m src.quality
       - name: Discover official REINS reports
+        id: reins_discovery
+        continue-on-error: true
         run: python -m src.reins_sources
+      - name: Report REINS TLS or index discovery failure without corrupting other research
+        if: steps.reins_discovery.outcome == 'failure'
+        run: |
+          echo '::warning title=REINS index unavailable::Official REINS HTTPS certificate validation or report discovery failed. No new REINS report links were accepted. EDINET and existing Tokyo/15-company analysis continue.'
+          echo '### REINS index discovery FAILED (not verified)' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Official REINS HTTPS/index collection failed. Existing market data are retained unchanged. Do NOT interpret this run as a successful REINS update. Check SSL certificate chain before restoring the monitor.' >> "$GITHUB_STEP_SUMMARY"
       - name: Verify sourced REINS market observations
         run: python -m src.market
       - name: Build separate preliminary and verified indicators
