@@ -70,6 +70,25 @@ jobs:
           echo '::warning title=REINS index unavailable::Official REINS HTTPS certificate validation or report discovery failed. No new REINS report links were accepted. EDINET and existing Tokyo/15-company analysis continue.'
           echo '### REINS index discovery FAILED (not verified)' >> "$GITHUB_STEP_SUMMARY"
           echo 'Official REINS HTTPS/index collection failed. Existing market data are retained unchanged. Do NOT interpret this run as a successful REINS update. Check SSL certificate chain before restoring the monitor.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Record official REINS connectivity independently of overall job status
+        if: always()
+        env:
+          REINS_DISCOVERY_OUTCOME: ${{ steps.reins_discovery.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os
+          from datetime import datetime,timezone
+          from pathlib import Path
+          outcome=os.environ.get("REINS_DISCOVERY_OUTCOME","unknown")
+          path=Path("data/raw/reins_discovery_health.json")
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps({
+            "checked_utc":datetime.now(timezone.utc).isoformat(),
+            "official_reins_index_discovery":"SUCCESS" if outcome=="success" else "FAILED",
+            "note":"HTTPS verified discovery result; overall workflow green is not REINS success",
+          },ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print("REINS official index discovery:",outcome)
+          PY
       - name: Verify sourced REINS market observations
         run: python -m src.market
       - name: Build separate preliminary and verified indicators
