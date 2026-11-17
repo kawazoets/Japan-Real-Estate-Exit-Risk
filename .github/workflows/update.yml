@@ -70,6 +70,8 @@ jobs:
         run: python -m src.compare_ir
       - name: Enforce full 15-group coverage and report missing annual evidence
         run: python -m src.cohort
+      - name: Compare exactly 15 economic groups without mixing resale categories
+        run: python -m src.peer_matrix
       - name: Generate evidence-gated editorial readiness report
         run: python -m src.editorial
       - name: Commit evidence and progress
