@@ -1,0 +1,16 @@
+group_id,provisional_relevance,analysis_role,tokyo_share_verified,used_condo_resale_segment_verified,usable_for_tokyo_exit_conclusion,selection_basis,critical_gap
+star_mica,FOCUS_CANDIDATE,中古区分マンション買取再販の直接検証候補,NO,NO,NO,中古マンション買取再販が主力,東京比率と個別物件の販売期間及び中古区分専用在庫の開示
+intellex,FOCUS_CANDIDATE,中古マンションリノベーション再販の直接検証候補,NO,NO,NO,リノヴェックスマンションの販売戸数と仕入資料,東京比率と仕入販売物件同質性及び売却滞留の確認
+landnet,FOCUS_CANDIDATE,区分マンション流通買取再販の直接検証候補,NO,NO,NO,区分中古マンションとの業務関連性,売買仲介と買取再販の分離及び東京比率の検証
+egrand,CONDITIONAL_CORE,中古住宅買取再販の条件付き参照,NO,NO,NO,中古再販事業を持つ,中古マンションと戸建て及び東京の区分開示
+mugen,CONDITIONAL_CORE,不動産買取再販の条件付き参照,NO,NO,NO,再販関連事業を持つ,投資用一棟不動産と居住用区分中古マンションの分離
+fuji_jutaku,CONDITIONAL_CORE,住宅流通事業の条件付き参照,NO,NO,NO,中古住宅流通事業を持つ,関西等の地域差と新築開発及び戸建ての分離
+tosei,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,開発再生賃貸など混在,中古区分マンション東京専用の比較不可
+sansei_landic,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,権利調整型不動産,中古区分マンション東京専用の比較不可
+tobu_juhan,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,戸建中心,中古区分マンション東京専用の比較不可
+good_com,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,新築投資用区分マンション開発販売,新築と中古買取再販の違い
+global_link,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,投資用マンション開発販売,新築と中古買取再販の違い
+dear_life,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,不動産開発中心,新築土地収益用物件と中古区分の違い
+ad_works,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,一棟収益不動産再生,東京中古区分専用の比較不可
+r_age,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,賃貸開発が混在,東京中古区分専用の比較不可
+cosmos_initia,COMPARISON_ONLY,事業構成の異なる対照群,NO,NO,NO,新築開発と不動産再生,中古区分の東京比率と新築の分離
