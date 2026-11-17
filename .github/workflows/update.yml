@@ -76,6 +76,8 @@ jobs:
         run: python -m src.tokyo_composition
       - name: Validate five Tokyo ward district market signals
         run: python -m src.tokyo_districts
+      - name: Validate company price-band resale and Tokyo market evidence separation
+        run: python -m src.segment_evidence
       - name: Generate evidence-gated editorial readiness report
         run: python -m src.editorial
       - name: Commit evidence and progress
