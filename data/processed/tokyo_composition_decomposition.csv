@@ -1,0 +1,2 @@
+from_month,to_month,tokyo_mean_sqm_from_man_yen,tokyo_mean_sqm_to_man_yen,change_man_yen_sqm,within_region_change_man_yen_sqm,ward_tama_mix_change_man_yen_sqm,within_region_share_pct,ward_tama_mix_share_pct,ward_contract_share_from_pct,ward_contract_share_to_pct,source_url,interpretation
+2025-10,2026-10,121.06,115.58,-5.4772,-4.2051,-1.2720,76.78,23.22,82.18,80.42,https://www.reins.or.jp/mw_202610_summary.pdf,ONLY_WARDS_VERSUS_TAMA_COMPOSITION_NOT_CONSTANT_QUALITY_INDEX
