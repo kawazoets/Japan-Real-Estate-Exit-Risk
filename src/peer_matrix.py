@@ -4,9 +4,10 @@ import csv
 from collections import defaultdict
 from .analyze import ROOT
 from .cohort import GROUPS, IR, COMPARISON, read, validate_groups, CONFIG
+RELEVANCE=ROOT/"config"/"tokyo_resale_relevance.csv"
 
 OUT=ROOT/"data"/"processed"/"peer_matrix_15.csv"
-COLUMNS=["group_id","company","cohort","latest_comparable_fiscal_year_pair",
+COLUMNS=["group_id","company","cohort","provisional_relevance","analysis_role","tokyo_share_verified","used_condo_resale_segment_verified","usable_for_tokyo_exit_conclusion","latest_comparable_fiscal_year_pair",
          "stock_yoy_pct","stock_definition","revenue_yoy_pct",
          "operating_profit_yoy_pct","operating_cashflow_prev_mJPY",
          "operating_cashflow_latest_mJPY","source_url","data_status",
@@ -32,7 +33,32 @@ def annual_map(rows,year_field,group_field):
         out[group][y]=r
     return out
 
-def build(groups,core,comparison):
+def validate_relevance(groups,relevance):
+    expected={g["group_id"] for g in groups}
+    ids=[r["group_id"] for r in relevance]
+    if len(ids)!=15 or len(set(ids))!=15 or set(ids)!=expected:
+        raise ValueError("All 15 study groups require exactly one explicit relevance classification")
+    counts={"FOCUS_CANDIDATE":0,"CONDITIONAL_CORE":0,"COMPARISON_ONLY":0}
+    for r in relevance:
+        value=r["provisional_relevance"]
+        if value not in counts:raise ValueError("Unexpected evidence relevance class")
+        counts[value]+=1
+        if r["usable_for_tokyo_exit_conclusion"] not in ("NO","YES"):
+            raise ValueError("Missing evidence gate for "+r["group_id"])
+        if r["usable_for_tokyo_exit_conclusion"]=="YES" and (r["tokyo_share_verified"]!="YES" or r["used_condo_resale_segment_verified"]!="YES"):
+            raise ValueError("Cannot claim Tokyo used-condo resale inference without Tokyo and segment verification")
+        cohort=next(g["cohort"] for g in groups if g["group_id"]==r["group_id"])
+        if cohort=="comparison" and value!="COMPARISON_ONLY":
+            raise ValueError("Comparison group cannot silently become a core Tokyo-resale company")
+        if cohort=="core" and value=="COMPARISON_ONLY":
+            raise ValueError("Original core group cannot silently be excluded")
+    if counts!={"FOCUS_CANDIDATE":3,"CONDITIONAL_CORE":3,"COMPARISON_ONLY":9}:
+        raise ValueError("Research weighting must remain three candidates, three conditional, nine comparison")
+    return {r["group_id"]:r for r in relevance}
+
+def build(groups,core,comparison,relevance=None):
+    relevance=read(RELEVANCE) if relevance is None else relevance
+    relevance_by_id=validate_relevance(groups,relevance)
     core_norm=[]
     for r in core:
         ticker=r.get("ticker")
@@ -43,10 +69,12 @@ def build(groups,core,comparison):
     out=[]
     for g in groups:
         group=g["group_id"]
+        tag=relevance_by_id[group]
+        evidence={k:tag[k] for k in ("provisional_relevance","analysis_role","tokyo_share_verified","used_condo_resale_segment_verified","usable_for_tokyo_exit_conclusion")}
         eligible=c.get(group,{}) if g["cohort"]=="core" else b.get(group,{})
         candidates=[y for y in eligible if (y-1) in eligible]
         if not candidates: 
-            out.append({"group_id":group,"company":g["canonical_company"],"cohort":g["cohort"],
+            out.append({"group_id":group,"company":g["canonical_company"],"cohort":g["cohort"],**evidence,
                 "latest_comparable_fiscal_year_pair":"","stock_yoy_pct":"","stock_definition":"NOT_AVAILABLE",
                 "revenue_yoy_pct":"","operating_profit_yoy_pct":"",
                 "operating_cashflow_prev_mJPY":"","operating_cashflow_latest_mJPY":"",
@@ -77,7 +105,7 @@ def build(groups,core,comparison):
             cf_old=num(old,"operating_cashflow_mJPY")
             cf_new=num(new,"operating_cashflow_mJPY")
         out.append({
-            "group_id":group,"company":g["canonical_company"],"cohort":g["cohort"],
+            "group_id":group,"company":g["canonical_company"],"cohort":g["cohort"],**evidence,
             "latest_comparable_fiscal_year_pair":f"{y-1}-{y}",
             "stock_yoy_pct":pct(new_stock,old_stock),"stock_definition":definition,
             "revenue_yoy_pct":pct(new_sales,old_sales),
@@ -95,7 +123,7 @@ def build(groups,core,comparison):
 def main():
     groups=read(GROUPS)
     validate_groups(groups,read(CONFIG))
-    matrix=build(groups,read(IR),read(COMPARISON))
+    matrix=build(groups,read(IR),read(COMPARISON),read(RELEVANCE))
     with OUT.open("w",encoding="utf-8",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=COLUMNS)
         writer.writeheader();writer.writerows(matrix)
