@@ -24,9 +24,9 @@ STATE=ROOT/"data"/"raw"/"reins_monthly_state.json"
 COLUMNS=["observation_month","geography","inventory_count","contracts_count","contract_price_jpy",
          "contract_sqm_price_jpy","source_url","source_page","audit_note","listing_price_jpy","listing_sqm_price_jpy"]
 BASE="https://www.reins.or.jp/library/"
-PDF_RE=re.compile(r"/MW_(20\\d{4})data\\.pdf$", re.IGNORECASE)
-RECORD_MONTH=re.compile(r"^(?:(?:20)?\\d{2}/)?(0[1-9]|1[0-2])$")
-NUMERIC=re.compile(r"^[+\\-−－]?[\\d,]+(?:\\.\\d+)?$")
+PDF_RE=re.compile(r"/MW_(20\d{4})data\.pdf$", re.IGNORECASE)
+RECORD_MONTH=re.compile(r"^(?:(?:20)?\d{2}/)?(0[1-9]|1[0-2])$")
+NUMERIC=re.compile(r"^[+\-−－]?[\d,]+(?:\.\d+)?$")
 PAGE_INDEX_CONTRACT=1
 PAGE_INDEX_INVENTORY=3
 
@@ -58,9 +58,9 @@ def numbers_from_tokiotable(text,month):
     """
     normalized=text.replace("−","-").replace("－","-").replace("，",",")
     # The Tokyo prefecture section is explicitly bounded by prefecture headings.
-    parts=re.split(r"[○◯]\\s*東京都",normalized,maxsplit=1)
+    parts=re.split(r"[○◯]\s*東京都",normalized,maxsplit=1)
     if len(parts)!=2: raise ValueError("Tokyo section heading not found")
-    end=re.split(r"[○◯]\\s*埼玉県",parts[1],maxsplit=1)[0]
+    end=re.split(r"[○◯]\s*埼玉県",parts[1],maxsplit=1)[0]
     month_num=int(month[-2:])
     # PDFs contain a rolling 13-month table: the month can occur twice.
     # Select the LAST matching row, but reject it if its cells are malformed.
@@ -162,7 +162,7 @@ def run(session=None):
     STATE.parent.mkdir(parents=True,exist_ok=True)
     STATE.write_text(json.dumps({"checked_utc":datetime.now(timezone.utc).isoformat(),
            "new_months":[r["observation_month"] for r in new],
-           "latest_official_month":max(links)},ensure_ascii=False,indent=2)+"\\n",encoding="utf-8")
+           "latest_official_month":max(links)},ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
     print("new_months="+",".join(r["observation_month"] for r in new))
     return new
 
