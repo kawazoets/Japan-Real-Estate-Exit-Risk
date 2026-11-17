@@ -7,16 +7,16 @@ Verified annual observations: **0**. Tokyo resale segment observations: **0**.
 
 ## Coverage (not completion)
 
-IR complete but unverified group-years: 7; partially populated IR group-years: 2; no data: 36.
+IR complete but unverified group-years: 9; partially populated IR group-years: 4; no data: 32.
 
 | Company | Cohort | FY2024 | FY2025 | FY2026 |
 |---|---|---|---|---|
 | スター・マイカ・ホールディングス | core | IR_PARTIAL_UNAUDITED | IR_PARTIAL_UNAUDITED | NOT_COLLECTED |
 | インテリックスグループ | core | IR_COMPLETE_UNAUDITED | IR_COMPLETE_UNAUDITED | IR_COMPLETE_UNAUDITED |
-| イーグランド | core | NOT_COLLECTED | NOT_COLLECTED | NOT_COLLECTED |
+| イーグランド | core | NOT_COLLECTED | IR_COMPLETE_UNAUDITED | IR_COMPLETE_UNAUDITED |
 | ムゲンエステート | core | IR_COMPLETE_UNAUDITED | IR_COMPLETE_UNAUDITED | NOT_COLLECTED |
 | ランドネット | core | NOT_COLLECTED | IR_COMPLETE_UNAUDITED | IR_COMPLETE_UNAUDITED |
-| フジ住宅 | core | NOT_COLLECTED | NOT_COLLECTED | NOT_COLLECTED |
+| フジ住宅 | core | NOT_COLLECTED | IR_PARTIAL_UNAUDITED | IR_PARTIAL_UNAUDITED |
 | トーセイ | comparison | NOT_COLLECTED | NOT_COLLECTED | NOT_COLLECTED |
 | サンセイランディック | comparison | NOT_COLLECTED | NOT_COLLECTED | NOT_COLLECTED |
 | 東武住販 | comparison | NOT_COLLECTED | NOT_COLLECTED | NOT_COLLECTED |
