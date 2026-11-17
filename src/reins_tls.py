@@ -92,6 +92,7 @@ def _verified_bundle(host):
             with open(certifi.where(),"rb") as f:roots=f.read()
             bundle=_tmp(roots+b"\n"+b"\n".join(issuers))
             _CACHE[host]=bundle
+            print("REINS TLS CA-Issuers recovery: issuer chain verified against trusted roots for "+host,flush=True)
             return bundle
         current=issuer
     raise requests.exceptions.SSLError(
