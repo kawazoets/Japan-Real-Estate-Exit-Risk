@@ -1,0 +1,11 @@
+ticker,company,fiscal_end,scope,inventory_category,amount_jpy,source_url,source_page,segment_scope,note
+3294,イーグランド,2025-03-31,nonconsolidated,real_estate_for_sale,15998931000,https://assets.minkabu.jp/news/article_media_content/urn:newsml:tdnet.info:20260507517674/140120260507517674.pdf,printed_p4,COMPANY_ALL_PROPERTIES,中古マンションと戸建て等が混在
+3294,イーグランド,2025-03-31,nonconsolidated,real_estate_in_process,5233058000,https://assets.minkabu.jp/news/article_media_content/urn:newsml:tdnet.info:20260507517674/140120260507517674.pdf,printed_p4,COMPANY_ALL_PROPERTIES,工事中在庫・完成物件とは別
+3294,イーグランド,2026-03-31,nonconsolidated,real_estate_for_sale,19512771000,https://assets.minkabu.jp/news/article_media_content/urn:newsml:tdnet.info:20260507517674/140120260507517674.pdf,printed_p4,COMPANY_ALL_PROPERTIES,中古マンションと戸建て等が混在
+3294,イーグランド,2026-03-31,nonconsolidated,real_estate_in_process,8036442000,https://assets.minkabu.jp/news/article_media_content/urn:newsml:tdnet.info:20260507517674/140120260507517674.pdf,printed_p4,COMPANY_ALL_PROPERTIES,工事中在庫・完成物件とは別
+8860,フジ住宅,2025-03-31,consolidated,real_estate_for_sale,28264795000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,COMPANY_MIXED_BUSINESS,住宅流通と分譲が混在
+8860,フジ住宅,2025-03-31,consolidated,real_estate_in_process,29093601000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,COMPANY_MIXED_BUSINESS,仕掛販売用不動産
+8860,フジ住宅,2025-03-31,consolidated,development_real_estate,36475659000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,DEVELOPMENT_NOT_RESALE_CONDOS,開発用不動産・中古マンション在庫へ含めない
+8860,フジ住宅,2026-03-31,consolidated,real_estate_for_sale,35948411000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,COMPANY_MIXED_BUSINESS,住宅流通と分譲が混在
+8860,フジ住宅,2026-03-31,consolidated,real_estate_in_process,29208307000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,COMPANY_MIXED_BUSINESS,仕掛販売用不動産
+8860,フジ住宅,2026-03-31,consolidated,development_real_estate,35265573000,https://www2.jpx.co.jp/disc/88600/140120260423509126.pdf,printed_p6,DEVELOPMENT_NOT_RESALE_CONDOS,開発用不動産・中古マンション在庫へ含めない
