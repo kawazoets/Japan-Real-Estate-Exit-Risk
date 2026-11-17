@@ -16,6 +16,7 @@ from urllib.parse import urlparse
 
 import fitz
 import requests
+from .reins_tls import verified_reins_get
 from .analyze import ROOT
 from .reins_sources import parse_index
 
@@ -36,7 +37,7 @@ def latest_urls(session, current=None):
     # Annual index URLs must really link to the PDF; never trust a guessed filename.
     for year in (current.year-1,current.year):
         try:
-            resp=session.get(BASE+str(year)+".html",timeout=35,
+            resp=verified_reins_get(session,BASE+str(year)+".html",timeout=35,
                              headers={"User-Agent":"Japan-Real-Estate-Exit-Risk/1.0"})
             resp.raise_for_status()
         except requests.RequestException as exc:
@@ -150,7 +151,7 @@ def run(session=None):
     newest_report=max(links)
     for month,url in sorted(links.items()):
         if month in known or month<=newest_saved or month!=newest_report: continue
-        response=session.get(url,timeout=90)
+        response=verified_reins_get(session,url,timeout=90)
         response.raise_for_status()
         if not response.content.startswith(b"%PDF"):
             raise ValueError("Non-PDF response for "+month)
