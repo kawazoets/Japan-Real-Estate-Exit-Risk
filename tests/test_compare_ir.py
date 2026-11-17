@@ -30,3 +30,23 @@ def test_no_turnover_days_when_cogs_absent():
     ]
     result=calc(rows)
     assert result[-1]["inventory_days_to"] is None
+
+def test_egrand_redevelopment_stock_observed_but_not_tokyo_only():
+    rows=[
+        item("3294",2025,21231989,30502712,26238968,4263744,""),
+        item("3294",2026,27549213,40091462,33744259,6347202,""),
+    ]
+    comparison=calc(rows)[0]
+    assert comparison["inventory_yoy_pct"]==29.75
+    assert comparison["revenue_yoy_pct"]==31.44
+    assert comparison["inventory_days_to"]==263.8
+    assert comparison["note"]=="GROUP_SCOPE_NOT_TOKYO_RESALE_ONLY"
+
+def test_fuji_sales_can_be_compared_without_inventing_relevant_inventory():
+    rows=[
+        item("8860",2025,"",123927013,104314307,19612706,""),
+        item("8860",2026,"",138332189,117313630,21018558,""),
+    ]
+    comparison=calc(rows)[0]
+    assert comparison["inventory_days_to"] is None
+    assert comparison["inventory_yoy_pct"] is None
