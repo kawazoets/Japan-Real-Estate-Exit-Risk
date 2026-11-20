@@ -2,7 +2,7 @@
 
 Verified annual observations: **0**
 
-Machine-extracted, unreviewed observations: **78**
+Machine-extracted, unreviewed observations: **84**
 
 No verified accounting observations yet. The workflow does **not** infer financial deterioration from missing data.
 

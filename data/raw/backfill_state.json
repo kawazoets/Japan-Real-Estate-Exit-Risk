@@ -1,8 +1,8 @@
 {
-  "next_date": "2023-04-21",
-  "last_batch_start": "2022-12-22",
+  "next_date": "2023-08-19",
+  "last_batch_start": "2023-04-21",
   "last_batch_days": 120,
-  "priority_next_date": "2026-06-19",
-  "priority_last_batch_start": "2025-12-21",
-  "priority_last_batch_days": 180
+  "priority_next_date": "2026-11-20",
+  "priority_last_batch_start": "2026-06-19",
+  "priority_last_batch_days": 154
 }
