@@ -5,7 +5,7 @@
 Core question: Are resale operators unable to liquidate condominium inventory at expected prices, despite rising Tokyo real-estate valuations?
 
 - Preliminary company indicator rows (2024-2026): **28**
-- Companies with >=2 annual inventory-day readings: **10**
+- Companies with >=2 annual inventory-day readings: **11**
 - Tokyo-market observations (monthly): **13**
 
 This is a DATA COVERAGE gate, not proof of exit congestion. Observations may still be machine-extracted and company-wide rather than Tokyo condominium-specific.
@@ -31,3 +31,4 @@ This is a DATA COVERAGE gate, not proof of exit congestion. Observations may sti
 - 3486: 2024, 2025
 - 8844: 2024, 2025, 2026
 - 8860: 2024, 2025, 2026
+- 8940: 2024, 2025
